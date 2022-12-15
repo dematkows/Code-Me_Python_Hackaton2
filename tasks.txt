@@ -1,0 +1,390 @@
+# Zadanie 00 - książka numerów telefonicznych
+
+### Etap 1:
+Stwórz skrypt w którym:
+- Utworzona zostanie pusta lista `lista_numerow`.
+- Utworzony zostanie słownik `wpis` o kluczach `imie` i `numer`. Wypełnij go wybranymi przez ciebie wartościami, odpowiednio typu `str` i `int`.
+- W osobnej linii do `lista_numerow` dodany zostanie słownik `wpis`.
+- Lista `lista_numerow` zostanie zapisana do pliku `ksiazka_numerow.json` w formacie JSON.
+
+### Etap 2:
+Wewnątrz skryptu stwórz funkcję, która będzie wczytywać z klawiatury dane do nowego wpisu a następnie doda go do listy wpisów. Funkcja ma:
+- Przyjmować jeden argument: `lista`, w którym przekazywać będziemy listę, do której funkcja będzie dodawać wpis.
+- Wczyta z klawiatury imię oraz numer.
+- Stworzy słownik analogiczny do tego w etapie 1 i doda go na koniec przekazanej w argumencie listy.
+
+#### Rozszerzenie:
+- Jeśli Użytkownik nie wpisał poprawnej liczby całkowitej jako numer, program ma poinformować Użytkownika o tym fakcie i nie dodawać niczego do listy, ale nie przerywać pracy całego programu.
+
+### Etap 3:
+- Stwórz funkcję `wczytaj_liste_wpisow`, która nie przyjmuje żadnego argumentu.
+    - Funkcja ta ma wczytać zawartość pliku `ksiazka_numerow.json` jako Pythonowy obiekt (należy użyć funkcji `json.load()`)
+    - Funkcja ma ZWRÓCIĆ wczytany obiekt.
+- Zastosuj wyrażenie `if __name__ == '__main__'` do oddzielenia wykonywanego kodu od definicji funkcji.
+- Przepisz program tak, aby używając zadeklarowanych funkcji program wykonał kolejne działania:
+    - wczytał zapisane dane z `ksiazka_numerow.json`
+    - wczytał z klawiatury dane do nowego wpisu.
+    - zapisał dane z powrotem do `ksiazka_numerow.json` lub pod inną nazwą podaną przez użytkownika
+
+#### Rozszerzenie 1:
+Zmodyfikuj funkcję `wczytaj_listę_wpisów` tak, aby wypisywała komunikat o liczbie wczytanych wpisów.
+
+#### Rozszerzenie 2:
+Zmodyfikuj funkcję `wczytaj_listę_wpisów` tak, aby w przypadku braku pliku `ksiazka_numerow.json` zwracała pustą listę.
+
+#### Rozszerzenie 3:
+Zmodyfikuj program tak, aby przed wczytaniem nowego wpisu zapytał się Użytkownika, czy wczytać nowy wpis.
+- Jeśli Użytkownik wpisze 't' to rozpocznie się wczytywanie nowego wpisu, a następnie pytanie zostanie ponowione.
+- Jeśli Użytkownik wpisze 'n' to wczytywanie nie rozpocznie się i program będzie kontynuował swoje działanie.
+- Jeśli Użytkownik wpisze cokolwiek innego, pytanie zostanie ponowione.
+
+
+
+
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+
+# Zadanie 01 - generator wiadomość
+
+Zbliża się koniec roku. Wyobraź sobie, że jesteś nauczycielem, który musi wysłać wiadomość do każdego ze swoich uczniów, przypominając im o brakujących zadaniach i ocenie końcowej.
+
+Niby możesz napisać maile ręcznie, ale w tym roku masz do ocenienia 8 klas po 30 uczniów. Trochę za dużo roboty, by pisać do każdego osobno.
+
+W arkuszu kalkulacyjnym przechowujesz informacje o klasie. Każdy uczeń ma imię, nazwisko, liczbę brakujących zadań oraz aktualną ocenę. Na szczęście masz Pythona i plan, że umieścisz dane w wiadomości, którą masz przygotowaną (plik `message.txt`). Dla ułatwienia klasa będzie anglojęzyczna co pozwoli uniknąć problemów z polską odmianą imion.
+
+Zaplanuj jak powinen działać skrypt? Etap koncepcyjny jest bardzo ważny. Dalej możesz działać z własnym kodem lub skorzystać z poniższych podpowiedzi.
+
+### Etap 1:
+
+Zbuduj mały testowy kod, który pomoże Ci zrozumieć flow zadania. 
+
+Stwórz skrypt w którym:
+- Pobrane zostaną testowe dane od użytkownika 3 razy. Raz dla listy imion i nazwisk, raz dla listy brakujących zadań, a raz dla listy ocen.
+- Utworzony zostanie szablon wiadomości tekstowej.
+- Za pomocą pętli zostanie wyświetlona wiadomość dla każdego ucznia z poprawnymi wartościami. Potencjalna ocena to po prostu obecna + 1 (w dalszej części kodu warto zaproponować inny algorytm proponowanej oceny np. w zależności od ilości dostarczonych zadań).
+- Ustal wspólną datę zaliczenia dla wszystkich uczniów
+
+Podpowiedź rozwiązania etapu 1 znajduje się w folderze hints.
+
+### Etap 2:
+
+Kod z etapu 1 pozwolił zarysować koncepcję, ale nie pomoże, jeśli mamy kilka klas. Dlatego utwórz dowolny arkusz kalkulacyjny z uczniami wg wzoru `[klasa],[imię],[nazwisko],[brakujące zadania],[ocena]` 
+np. `3A, Adam, Kowalski, 3, 4`.
+
+Zapisz go jako `students.csv`.
+
+
+### Etap 3: 
+Wewnątrz skryptu stwórz funkcję, która będzie pobierać dane z pliku .csv. Zwróć uwagę, że plik csv używa znaku podziału.
+
+Funkcja ma:
+- Prawidłowo odczytać plik 
+- Obsłużyć błąd w razie braku pliku w folderze
+- Stworzy dowolną strukturę na podstawie danych z pliku - 3 listy (po odczycie wiersza doda dane do odpowiedniej grupy danych `imiona_nazwiska =[] zadania =[] ocena=[]` ) albo słownik (każdy użytkownik ma unikalny klucz i wartości - `{ klasa_imie_nazwisko : [imie, nazwisko, zadania, ocena]}`).
+
+Struktura będzie przechowywać informację o uczniach i pozwoli w łatwy sposób dostać się do interesującego nas elementu.
+
+### Etap 4:
+- Zamień wstawioną na sztywno wiadomość na funkcje odczytującą wiadomość z pliku message.txt. Tekst wiadomości możesz dowolnie zmodyfikować.
+- Zastosuj wyrażenie `if __name__ == '__main__'` do odzielenia wykonywanego kodu od definicji funkcji.
+
+#### Rozszerzenie:
+- Jeśli w pliku znajdzie się niespodziewana wartość np. zamiast oceny trafi się wartość nieliczbowa - wyrażenie 'nieobecny' nasz kod w jakiś sposób poradzi sobie z błędem (wstawinie oceny 0 jest jak najbardziej ok)
+
+- Zapoznaj się z możliwościami biblioteki csv zamiast traktować plik jak zwykły plik tekstowy ;) Czy pozwoli Ci to na łatwiejszą obsługę pliku?
+
+
+
+
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+
+# Zadanie 02 - gra RPG
+
+Przypomnij sobie zadanie z pierwszego hackatonu
+
+> Historyjka a'la RPG:
+> - Konieczność użycia modułu `random`.
+> - Program wypisuje kolejne "przygody" bohatera.
+> - Przygody są zdefiniowanymi zdaniami, które będą losowo wypełniane odpowiednimi wyrazami, np: "(bohater) poszedł do (miejsce) aby (czasownik)." może stać się "Vohenal V Waleczny poszedł do tawerny aby zasnąć."
+> - Historyjka ma mieć zadaną długość i ma być możliwie losowa.
+
+Jeżeli zadanie zostało zrobione na hackatonie 1, można wykorzystać jego kod.
+
+Przygody bohatera opisuj po angielsku, by uniknąć problemów leksykalnych.
+
+1. Gracz powinen mieć ekwipunek, z którego można wyciągać i dodawać elementy.
+2. Gracz powinen móc sterować swoim bohaterem zamiast losować zdania.
+3. Postęp gracza powien zależeć od jego wyborów oraz czynników losowych
+4. Gracz ma zmienny poziom energii
+5. Stwórz conajmniej jeden moduł.
+6. Stwórz obsłuż conajmniej jeden Wyjątek.
+
+Przykład, którym można się zainspirować, a nawet "pożyczyć" kolejność zdarzeń:
+https://spyze.pl/Rayneven/
+
+- Implementacja gry dowolna. Przykładowa propozycja etapów impementacji poniżej.
+
+- Zastosuj wyrażenie `if __name__ == '__main__'` do odzielenia wykonywanego kodu od definicji funkcji.
+
+
+### Etap 1:
+Stwórz - bohatera:
+- Użytkownik może podać płeć wojownika, rasę oraz imię lub je wylosować z listy.
+- Generator imion bohatera powinen brać pod uwagę płeć bohatera oraz rasę i zwracać wygenerowane imię zgodnie z założoną konwencją.
+- Generator imion powinen znajdować sie w oddzielnym module.
+- Bohater powinen mieć dostępny ekwipunek oraz 10 stopniowy poziom energii. Sposób implamentacji dobierz na podstawie całości.
+
+### Etap 2:
+Wewnątrz skryptu stwórz funkcję, która wyświetlać menu główne.
+- W menu użytkownik może:
+    - wybrać nową grę,
+    - kontynuować grę,
+    - natychmiastowo zakończyć program
+     
+(ponieważ część funkcji nie będzie jeszcze zaimplementowana np. zapis - można użyć instrukcji ``pass``).
+
+
+### Etap 3: 
+Stwórz logikę poruszania się po grze.
+- Przygody bohatera powinny odbywać w sposób bardziej kontrollowany 
+- Bohater powinen móc odwiedzić conajmniej 5 różnych lokalizacji, w których będzie mógł odbyć różne akcje i od nich będzie zależała rozgrywka
+- Osobna funkcja powinna być odpowiedzialna za budowanie zdań
+
+Bohater wybiera z menu opcję podróży do miasta lub lasu - wybór: miasto.
+
+Opowieść o bohaterze:
+
+> "Vohenal V Waleczny wyruszył do miasta aby odpocząć od nadmiaru przygód."
+
+Dalszy wybór użytkownika.
+
+> "Dotarłeś do miasta. Gdzie się teraz udasz: 1 / 2"
+
+W mieście nasz bohater wybiera dalszą drogę - wejść do tawerny czy odwiedzić handlarza - wybór: tawerna.
+
+> "Vohenal V Waleczny wszedł do tawerny"
+
+Wylosuj dalszą przygodę użytkownika np.
+
+> "W tawernie trwała bójki. Vohenal V Waleczny dobył miecza, ale został raniony. Traci 2 punktów życia".
+
+> "W tawernie trwały obchody urodzin króla. Jouxdrien bierze w nich udział, wykorzystuje darmowy posiłek, +2 punkty energii"
+
+
+### Etap 4:
+
+Stwórz rodzaj ekwipunku, który bohater ma lub, który może zakupić i w jakiej cenie.
+
+> "Vohenal V Waleczny kupił od handlarza topór, o sile rażenia 50 - zapłacił 30 złotych monet"
+
+- Ekwipunek może być słownikiem zawierającym jedzenie, pieniądze i sprzęt. 
+    - Pieniądze będą wartością liczbową. 
+    - Jedzenie i sprzęt powinny zawierać słowniki `produkt: wartość`
+        - jeżeli w ekwipunku znajduje się ciasto to dostarcza +1 punkt energii
+        - jeżeli w ekwipunku znajduje się miecz to ma on siłę rażenia 15, topór siła rażenia 50.
+- Oczywiście inny sposób zdefiniowania ekwipunku wchodzi w grę np. lista zawierająca krotki 2 elementowe etc.
+
+Ekwipunek i akcje ekwipunku mogą być osobnym modułem.
+
+### Etap 5: 
+
+Weź pod uwagę, że niektóre zasoby bohatera są zużywalne.
+- Uwzględnij energię traconą na np. podróże, przygody. Stwórz funkcje usuwającą energię.
+- Jedzenie powinno być usuwane po wykorzystaniu. Stwórz funkcję usuwającą element z ekwipunku
+- Pamiętaj dodać sposób na odzyskanie energii - jedzenie albo sen (sen doładowuje dowolny poziom energii do max). Stwórz funkcję dodającą energię z pożywienia oraz funkcję snu.
+
+> "Po 4 godzinach w lesie bohater poczuł się głodny. Zjadł batonika"
+
+### Rozszerzenie
+
+Po każdej akcji wyświetl poziom energii gracza. np.
+
+[ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ] 100%
+
+[ ▓ ▓ ▓ ░ ░ ░ ░ ░ ░ ░ ] 30%
+
+Dzięki temu gracz nie zapomni uzupełniać energii.
+
+
+### Etap 6:
+
+Pozwól graczowi umrzeć. 
+- Bohater, który nie będzie jadł i spał wyczerpuje energię. Poziom 0 oznacza koniec gry.
+- Dodaj inny sposób uśmiercenia bohatera. 
+    - Przykładowo: ratowanie ksieżniczki, walka ze smokiem. Wygrana lub zwycięstwo powinny być losowane.
+    
+
+### Rozszerzenia
+
+#### Dodaj kolorów
+Skorzystaj z modułów `import color` albo `import colorama`. Pokoloruj output przygód bohatera
+- np. wysoki stan baterii na zielono, niski na czerwono
+- jedzenie będzie miało inny kolor niż pieniądze czy broń
+
+#### Dodaj elementy wizualne
+Dodaj elementy walki wizualnej np. jeśli gracz spotka w lesie groźnego węża możemy go narysować w konsoli
+
+```python
+snake = """
+
+             ____
+            / . .\\
+            \  ---<
+             \  /
+   __________/ /
+-=:___________/
+
+
+"""
+```
+
+
+a gdy gracz pokona węża:
+
+```python
+snake = """
+
+ 
+                         ____
+                      >---   \\
+   ____________         \ x x /
+-=:___________/          ¯¯¯¯¯
+
+
+"""
+```
+
+*To jest odcięta głowa, można narysować ładniej lub znaleźć gotowiec jako ascii art.*
+
+#### Odczyt i zapis
+Dodaj do menu możliwość zapisu gry i odczytu z pliku.
+
+Opracuj sposób zapisu gry. Może być to przykładowo:
+- stan wszystkich zasobów gracza oraz jego imię plik `imie_bohatera_resources.json`
+- wszystkie dotychczasowe zdania przygód gracza `imie_gracza_story.txt`
+
+Znając format zapisu dodaj odczyt. Pamiętaj obsłużyć potencjalne błędy.
+
+
+
+
+
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+
+# Zadanie 03 - wisielec
+
+### Etap 1:
+- Gracz powinien mieć listę wykorzystanych liter na widoku i jeśli dana litera jest wykorzystana nie powinen móc jej użyć.
+
+### Etap 2:
+- Niech pojawi się tytułowy wisielec (hints).
+
+### Etap 3:
+- Jeśli użytkownik przegra pokoloruj wisielca na czerwono za pomocą modułu np. `import color`
+
+
+### Rozszerzenie
+
+Wykorzystaj moduł turtle, by narysować wisielca.
+
+
+
+
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+
+# Zadanie 04 - generator linków
+
+Zapoznaj się z dokumentacją przykładowego [programu parterskiego](https://program-partnerski.helion.pl/dokumentacjapp.pdf).
+
+### Etap 1
+Stwórz skrypt, w którym obierzesz od klienta:
+- numer id klienta - to kod numeryczny, pięciocyfrowy np. 90412
+- link do produktu
+
+### Rozszerzenie
+
+Zapoznaj się z wyrażeniami regularnymi, by przetestować czy podany input jest linkiem
+
+### Etap 2
+Napisz funkcję, która pobiera od użytkownika lub sama rozpoznaje jakiego typu został podany url.
+
+URL jakie obsługuje funkcja:
+- strona główna
+- strona produktu
+- strona promocji
+- dodanie zestawu do koszyka
+- link do kategorii
+-  ...
+
+### Etap 3
+
+Użytkowników może wielokrotnie dodać link do przekształcenia w link dedykowany.
+
+### Etap 4
+
+Użytkownik może zapisać wszystkie do tej pory zrobione linki do pliku `txt` lub `csv`
+
+### Rozszerzenia
+- Użytkownik podaje plik `.txt` lub `.csv` z listą książek. Każda książka znajduje sięw nowym wierszu.
+- Otrzymuje plik wynikowy z listą dedykowanych linków.
+- Zmodyfikuj program tak, by w pliku wynikowym pierwsza kolumna zawierała link oryginalny, druga `-`, a trzecia link dedykowany.
+- Kod powinen analogicznie działać dla innych domen grupy helion np. ebookpoint czy videopoint.
+
+W razie problemów ze zrozumieniem zajrzyj do pliku `test.txt` w folderze hints.
+
+
+
+
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+
+# Zadanie 05 - nagłówki 
+
+Na podstawie zestawu rekordów:
+
+```
+{ id: 1, title: "heading1", heading_level: 0 },
+{ id: 2, title: "heading2", heading_level: 2 },
+{ id: 3, title: "heading3", heading_level: 1 },
+{ id: 4, title: "heading4", heading_level: 1 }
+``` 
+
+napisz algorytm który symulowałby zachowanie nagłówków w
+markdown 
+
+Przetestuj dla innych zestawów:
+
+```
+# zestaw 1
+{ id: 1, title: "heading1", heading_level: 0 },
+{ id: 2, title: "heading2", heading_level: 3 },
+{ id: 3, title: "heading3", heading_level: 4 },
+{ id: 4, title: "heading4", heading_level: 1 },
+{ id: 5, title: "heading5", heading_level: 0 }
+
+# zestaw 2
+{ id: 1, title: "heading1", heading_level: 3 },
+{ id: 2, title: "heading2", heading_level: 2 },
+{ id: 3, title: "heading3", heading_level: 1 },
+{ id: 4, title: "heading4", heading_level: 5 },
+{ id: 5, title: "heading5", heading_level: 0 }
+
+```
+
+Rozszerzenie:
+
+Zasymuluj zachowanie nagłówków w Word / Libre office 
+wraz z poprawną numeracją.
+
+Na podstawie zestawu rekordów:
+```
+{ id: 1, title: "Heading1", heading_level: 0 },
+{ id: 2, title: "Heading2", heading_level: 2 },
+{ id: 3, title: "Heading3", heading_level: 1 },
+{ id: 4, title: "Heading4", heading_level: 1 }
+```
+
+![naglowki word](./word.png)
